@@ -1,5 +1,3 @@
-/// Star-schema relationships (single-direction, fact -> dimension)
-
 relationship Txn_Date
 	fromColumn: FactTransaction.DateKey
 	toColumn: DimDate.DateKey

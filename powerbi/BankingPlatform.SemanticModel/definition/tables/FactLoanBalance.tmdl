@@ -1,61 +1,49 @@
 table FactLoanBalance
-
 	column DateKey
 		dataType: int64
 		summarizeBy: none
 		sourceColumn: DateKey
-
 	column AccountKey
 		dataType: int64
 		summarizeBy: none
 		sourceColumn: AccountKey
-
 	column CustomerKey
 		dataType: int64
 		summarizeBy: none
 		sourceColumn: CustomerKey
-
 	column ProductKey
 		dataType: int64
 		summarizeBy: none
 		sourceColumn: ProductKey
-
 	column BranchKey
 		dataType: int64
 		summarizeBy: none
 		sourceColumn: BranchKey
-
 	column EndingBalance
 		dataType: double
 		summarizeBy: sum
 		sourceColumn: EndingBalance
 		formatString: #,0.00
-
 	column DaysPastDue
 		dataType: int64
 		summarizeBy: sum
 		sourceColumn: DaysPastDue
-
 	column DelinquencyBucket
 		dataType: string
 		summarizeBy: none
 		sourceColumn: DelinquencyBucket
-
 	column IsNonPerforming
 		dataType: boolean
 		summarizeBy: none
 		sourceColumn: IsNonPerforming
-
 	column RollStatus
 		dataType: string
 		summarizeBy: none
 		sourceColumn: RollStatus
-
 	column CECLStage
 		dataType: string
 		summarizeBy: none
 		sourceColumn: CECLStage
-
 	partition FactLoanBalance = m
 		mode: import
 		source =

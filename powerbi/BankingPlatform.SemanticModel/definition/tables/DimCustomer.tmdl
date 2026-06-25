@@ -1,56 +1,45 @@
 table DimCustomer
-
 	column CustomerKey
 		dataType: int64
 		isKey
 		summarizeBy: none
 		sourceColumn: CustomerKey
-
 	column CustomerID
 		dataType: string
 		summarizeBy: none
 		sourceColumn: CustomerID
-
 	column FirstName
 		dataType: string
 		summarizeBy: none
 		sourceColumn: FirstName
-
 	column LastName
 		dataType: string
 		summarizeBy: none
 		sourceColumn: LastName
-
 	column CustomerSegment
 		dataType: string
 		summarizeBy: none
 		sourceColumn: CustomerSegment
-
 	column CreditScore
 		dataType: int64
 		summarizeBy: sum
 		sourceColumn: CreditScore
-
 	column RiskBand
 		dataType: string
 		summarizeBy: none
 		sourceColumn: RiskBand
-
 	column HomeBranchKey
 		dataType: int64
 		summarizeBy: none
 		sourceColumn: HomeBranchKey
-
 	column RelationshipStartYear
 		dataType: int64
 		summarizeBy: sum
 		sourceColumn: RelationshipStartYear
-
 	column State
 		dataType: string
 		summarizeBy: none
 		sourceColumn: State
-
 	partition DimCustomer = m
 		mode: import
 		source =

@@ -2,7 +2,7 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/report/1.0.0/schema.json",
   "themeCollection": {
     "baseTheme": {
-      "name": "CY24SU10",
+      "name": "Banking Risk Intelligence Platform",
       "reportVersionAtImport": "5.55",
       "type": "SharedResources"
     }
@@ -13,11 +13,11 @@
   },
   "pages": {
     "pageOrder": [
-      "page_executive",
-      "page_risk",
-      "page_deposits",
-      "page_regulatory"
+      "ReportSection1",
+      "ReportSection2",
+      "ReportSection3",
+      "ReportSection4"
     ],
-    "activePageName": "page_executive"
+    "activePageName": "ReportSection1"
   }
 }

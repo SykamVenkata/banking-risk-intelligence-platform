@@ -1,36 +1,29 @@
 table DimBranch
-
 	column BranchKey
 		dataType: int64
 		isKey
 		summarizeBy: none
 		sourceColumn: BranchKey
-
 	column BranchCode
 		dataType: string
 		summarizeBy: none
 		sourceColumn: BranchCode
-
 	column BranchName
 		dataType: string
 		summarizeBy: none
 		sourceColumn: BranchName
-
 	column City
 		dataType: string
 		summarizeBy: none
 		sourceColumn: City
-
 	column Region
 		dataType: string
 		summarizeBy: none
 		sourceColumn: Region
-
 	column OpenedYear
 		dataType: int64
 		summarizeBy: sum
 		sourceColumn: OpenedYear
-
 	partition DimBranch = m
 		mode: import
 		source =

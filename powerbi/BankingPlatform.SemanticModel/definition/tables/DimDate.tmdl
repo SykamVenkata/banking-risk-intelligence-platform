@@ -1,70 +1,57 @@
 table DimDate
 	dataCategory: Time
-
 	column DateKey
 		dataType: int64
 		isKey
 		summarizeBy: none
 		sourceColumn: DateKey
-
 	column Date
 		dataType: dateTime
 		formatString: Long Date
 		summarizeBy: none
 		sourceColumn: Date
 		annotation SummarizationSetBy = Automatic
-
 	column Year
 		dataType: int64
 		summarizeBy: none
 		sourceColumn: Year
-
 	column Quarter
 		dataType: string
 		summarizeBy: none
 		sourceColumn: Quarter
-
 	column QuarterNo
 		dataType: int64
 		summarizeBy: none
 		sourceColumn: QuarterNo
-
 	column Month
 		dataType: int64
 		summarizeBy: none
 		sourceColumn: Month
-
 	column MonthName
 		dataType: string
 		summarizeBy: none
 		sourceColumn: MonthName
 		sortByColumn: Month
-
 	column MonthYear
 		dataType: string
 		summarizeBy: none
 		sourceColumn: MonthYear
-
 	column Day
 		dataType: int64
 		summarizeBy: none
 		sourceColumn: Day
-
 	column DayOfWeek
 		dataType: string
 		summarizeBy: none
 		sourceColumn: DayOfWeek
-
 	column IsWeekend
 		dataType: boolean
 		summarizeBy: none
 		sourceColumn: IsWeekend
-
 	column IsMonthEnd
 		dataType: boolean
 		summarizeBy: none
 		sourceColumn: IsMonthEnd
-
 	partition DimDate = m
 		mode: import
 		source =

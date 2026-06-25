@@ -1,37 +1,30 @@
 table DimProduct
-
 	column ProductKey
 		dataType: int64
 		isKey
 		summarizeBy: none
 		sourceColumn: ProductKey
-
 	column ProductCode
 		dataType: string
 		summarizeBy: none
 		sourceColumn: ProductCode
-
 	column ProductName
 		dataType: string
 		summarizeBy: none
 		sourceColumn: ProductName
-
 	column ProductCategory
 		dataType: string
 		summarizeBy: none
 		sourceColumn: ProductCategory
-
 	column LineOfBusiness
 		dataType: string
 		summarizeBy: none
 		sourceColumn: LineOfBusiness
-
 	column BaseRate
 		dataType: double
 		summarizeBy: sum
 		sourceColumn: BaseRate
 		formatString: #,0.00
-
 	partition DimProduct = m
 		mode: import
 		source =

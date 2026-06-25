@@ -1,52 +1,42 @@
 table DimAccount
-
 	column AccountKey
 		dataType: int64
 		isKey
 		summarizeBy: none
 		sourceColumn: AccountKey
-
 	column AccountID
 		dataType: string
 		summarizeBy: none
 		sourceColumn: AccountID
-
 	column CustomerKey
 		dataType: int64
 		summarizeBy: none
 		sourceColumn: CustomerKey
-
 	column ProductKey
 		dataType: int64
 		summarizeBy: none
 		sourceColumn: ProductKey
-
 	column AccountCategory
 		dataType: string
 		summarizeBy: none
 		sourceColumn: AccountCategory
-
 	column OpenDate
 		dataType: dateTime
 		summarizeBy: none
 		sourceColumn: OpenDate
-
 	column Status
 		dataType: string
 		summarizeBy: none
 		sourceColumn: Status
-
 	column OpeningBalance
 		dataType: double
 		summarizeBy: sum
 		sourceColumn: OpeningBalance
 		formatString: #,0.00
-
 	column HomeBranchKey
 		dataType: int64
 		summarizeBy: none
 		sourceColumn: HomeBranchKey
-
 	partition DimAccount = m
 		mode: import
 		source =

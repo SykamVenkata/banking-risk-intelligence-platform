@@ -1,38 +1,31 @@
 table AggMonthlyLoans
-
 	column MonthKey
 		dataType: int64
 		summarizeBy: none
 		sourceColumn: MonthKey
-
 	column ProductKey
 		dataType: int64
 		summarizeBy: none
 		sourceColumn: ProductKey
-
 	column LineOfBusiness
 		dataType: string
 		summarizeBy: none
 		sourceColumn: LineOfBusiness
-
 	column LoanBalance
 		dataType: double
 		summarizeBy: sum
 		sourceColumn: LoanBalance
 		formatString: #,0.00
-
 	column InterestIncome
 		dataType: double
 		summarizeBy: sum
 		sourceColumn: InterestIncome
 		formatString: #,0.00
-
 	column NPLBalance
 		dataType: double
 		summarizeBy: sum
 		sourceColumn: NPLBalance
 		formatString: #,0.00
-
 	partition AggMonthlyLoans = m
 		mode: import
 		source =

@@ -1,0 +1,15 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/1.0.0/schema.json",
+  "name": "ReportSection3",
+  "displayName": "Deposits & Lending",
+  "displayOption": "FitToPage",
+  "width": 1280,
+  "height": 760,
+  "ordinal": 2,
+  "background": {
+    "color": {
+      "value": "#0A1A0A"
+    },
+    "transparency": 0
+  }
+}
