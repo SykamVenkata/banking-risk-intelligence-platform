@@ -1,0 +1,42 @@
+table DimBranch
+
+	column BranchKey
+		dataType: int64
+		isKey
+		summarizeBy: none
+		sourceColumn: BranchKey
+
+	column BranchCode
+		dataType: string
+		summarizeBy: none
+		sourceColumn: BranchCode
+
+	column BranchName
+		dataType: string
+		summarizeBy: none
+		sourceColumn: BranchName
+
+	column City
+		dataType: string
+		summarizeBy: none
+		sourceColumn: City
+
+	column Region
+		dataType: string
+		summarizeBy: none
+		sourceColumn: Region
+
+	column OpenedYear
+		dataType: int64
+		summarizeBy: sum
+		sourceColumn: OpenedYear
+
+	partition DimBranch = m
+		mode: import
+		source =
+				let
+					Source = Csv.Document(File.Contents(DataFolder & "DimBranch.csv"), [Delimiter=",", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+					Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+					Typed = Table.TransformColumnTypes(Promoted, {{"BranchKey", Int64.Type}, {"BranchCode", type text}, {"BranchName", type text}, {"City", type text}, {"Region", type text}, {"OpenedYear", Int64.Type}})
+				in
+					Typed

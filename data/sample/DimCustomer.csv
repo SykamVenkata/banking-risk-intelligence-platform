@@ -1,0 +1,101 @@
+CustomerKey,CustomerID,FirstName,LastName,CustomerSegment,CreditScore,RiskBand,HomeBranchKey,RelationshipStartYear,State
+1,CUST000001,Raj,Rodriguez,Mass Market,612,High,22,2023,CA
+2,CUST000002,Priya,Garcia,Mass Market,712,Medium,30,2019,NY
+3,CUST000003,Liam,Garcia,Mass Market,709,Medium,33,2019,CA
+4,CUST000004,Lucas,Nguyen,Affluent,785,Low,39,2019,FL
+5,CUST000005,Jose,Garcia,Mass Market,649,High,35,2017,AZ
+6,CUST000006,Emma,Hernandez,Mass Market,653,High,32,2015,NY
+7,CUST000007,Jose,Martinez,Mass Market,507,High,16,2016,NY
+8,CUST000008,Noah,Williams,Mass Market,756,Low,6,2018,MA
+9,CUST000009,Raj,Kim,Mass Market,660,Medium,9,2016,TX
+10,CUST000010,Olivia,Garcia,Mass Market,638,High,17,2022,AZ
+11,CUST000011,Priya,Miller,Mass Market,645,High,35,2024,FL
+12,CUST000012,Wei,Ali,Mass Market,731,Medium,24,2019,MA
+13,CUST000013,Ahmed,Brown,Mass Market,698,Medium,16,2023,FL
+14,CUST000014,Maria,Smith,Mass Market,653,High,38,2016,AZ
+15,CUST000015,Noah,Davis,Mass Market,647,High,1,2018,CA
+16,CUST000016,Linda,Williams,Mass Market,756,Low,3,2015,WA
+17,CUST000017,Liam,Davis,Affluent,694,Medium,18,2016,MA
+18,CUST000018,Olivia,Jones,Mass Market,678,Medium,37,2018,NC
+19,CUST000019,Linda,Patel,Mass Market,673,Medium,27,2022,FL
+20,CUST000020,Patricia,Ali,Affluent,757,Low,28,2016,WA
+21,CUST000021,Priya,Anderson,Mass Market,850,Low,4,2021,CA
+22,CUST000022,Wei,Cook,Mass Market,773,Low,22,2015,CA
+23,CUST000023,Michael,Miller,Small Business,722,Medium,35,2018,MA
+24,CUST000024,Priya,Garcia,Small Business,758,Low,18,2017,MA
+25,CUST000025,John,Anderson,Mass Market,619,High,36,2018,CA
+26,CUST000026,Lucas,Kim,Mass Market,579,High,1,2015,CA
+27,CUST000027,Jennifer,Wilson,Affluent,679,Medium,32,2018,MA
+28,CUST000028,Wei,Johnson,Mass Market,628,High,11,2018,GA
+29,CUST000029,Wei,Rodriguez,Mass Market,730,Medium,30,2015,IL
+30,CUST000030,Ethan,Cook,Affluent,779,Low,36,2021,MA
+31,CUST000031,Michael,Martinez,Affluent,730,Medium,14,2017,NY
+32,CUST000032,Isabella,Kim,Mass Market,646,High,4,2024,WA
+33,CUST000033,Mary,Chen,High Net Worth,727,Medium,31,2015,AZ
+34,CUST000034,Jennifer,Johnson,Mass Market,766,Low,33,2023,CA
+35,CUST000035,John,Singh,Mass Market,772,Low,5,2017,FL
+36,CUST000036,Patricia,Chen,Affluent,699,Medium,16,2021,NC
+37,CUST000037,Mary,Singh,High Net Worth,743,Low,6,2024,GA
+38,CUST000038,Noah,Nguyen,Affluent,736,Medium,21,2024,IL
+39,CUST000039,Ava,Murphy,Affluent,807,Low,21,2018,FL
+40,CUST000040,Wei,Jones,Mass Market,713,Medium,20,2019,MA
+41,CUST000041,Raj,Williams,Mass Market,662,Medium,1,2020,MA
+42,CUST000042,Noah,Brown,Mass Market,685,Medium,5,2024,AZ
+43,CUST000043,Liam,Rodriguez,Mass Market,590,High,9,2018,WA
+44,CUST000044,Linda,Lopez,Mass Market,762,Low,19,2016,TX
+45,CUST000045,Olivia,Murphy,High Net Worth,761,Low,20,2022,NC
+46,CUST000046,James,Ali,Affluent,672,Medium,36,2023,IL
+47,CUST000047,Robert,Rodriguez,Mass Market,675,Medium,8,2016,CA
+48,CUST000048,Robert,Rodriguez,Mass Market,660,Medium,19,2023,NC
+49,CUST000049,Ethan,Hernandez,Small Business,737,Medium,14,2018,IL
+50,CUST000050,Sofia,Rodriguez,High Net Worth,820,Low,4,2023,CA
+51,CUST000051,David,Johnson,Affluent,801,Low,1,2021,WA
+52,CUST000052,Lucas,Rodriguez,High Net Worth,786,Low,11,2017,MA
+53,CUST000053,Ethan,Wilson,Mass Market,672,Medium,36,2023,NY
+54,CUST000054,John,Murphy,Mass Market,664,Medium,10,2016,AZ
+55,CUST000055,Jose,Chen,Affluent,620,High,36,2015,TX
+56,CUST000056,Robert,Johnson,Mass Market,714,Medium,20,2021,WA
+57,CUST000057,Jose,Miller,Mass Market,721,Medium,16,2015,CA
+58,CUST000058,Raj,Kim,Mass Market,678,Medium,27,2020,NC
+59,CUST000059,Linda,Garcia,Mass Market,623,High,12,2017,GA
+60,CUST000060,Jennifer,Cook,Small Business,787,Low,22,2015,GA
+61,CUST000061,David,Garcia,Small Business,708,Medium,7,2018,GA
+62,CUST000062,Sofia,Davis,Mass Market,572,High,13,2015,MA
+63,CUST000063,Elizabeth,Davis,Mass Market,697,Medium,15,2020,NY
+64,CUST000064,Wei,Hernandez,Mass Market,659,High,18,2018,CA
+65,CUST000065,Jose,Khan,Mass Market,723,Medium,33,2019,GA
+66,CUST000066,Maria,Smith,Mass Market,671,Medium,8,2023,IL
+67,CUST000067,Noah,Rodriguez,Mass Market,713,Medium,3,2017,CA
+68,CUST000068,Priya,Lopez,Mass Market,689,Medium,21,2024,GA
+69,CUST000069,Liam,Brown,Affluent,705,Medium,25,2024,NC
+70,CUST000070,David,Johnson,Affluent,774,Low,28,2018,NY
+71,CUST000071,Mei,Kim,Mass Market,788,Low,13,2023,WA
+72,CUST000072,John,Ali,Mass Market,787,Low,22,2021,NC
+73,CUST000073,Ava,Brown,Mass Market,655,High,20,2020,AZ
+74,CUST000074,Ava,Wilson,Mass Market,754,Low,21,2019,GA
+75,CUST000075,Olivia,Jones,Mass Market,809,Low,13,2019,GA
+76,CUST000076,Ava,Cook,Mass Market,751,Low,12,2021,NC
+77,CUST000077,Elizabeth,Gonzalez,Mass Market,735,Medium,36,2024,NY
+78,CUST000078,Elizabeth,Miller,Mass Market,604,High,28,2019,NC
+79,CUST000079,Lucas,Hernandez,Affluent,767,Low,30,2024,MA
+80,CUST000080,Ava,Miller,Mass Market,678,Medium,33,2022,MA
+81,CUST000081,Ava,Williams,Mass Market,665,Medium,19,2017,AZ
+82,CUST000082,Maria,Williams,Affluent,765,Low,16,2024,IL
+83,CUST000083,Mei,Miller,Affluent,801,Low,10,2018,NY
+84,CUST000084,Linda,Patel,Mass Market,850,Low,40,2015,CA
+85,CUST000085,Priya,Khan,Mass Market,589,High,37,2022,FL
+86,CUST000086,Sofia,Gonzalez,Mass Market,773,Low,16,2021,TX
+87,CUST000087,Raj,Brown,Affluent,767,Low,28,2015,FL
+88,CUST000088,Mei,Murphy,Mass Market,775,Low,34,2017,MA
+89,CUST000089,Olivia,Davis,Mass Market,705,Medium,8,2015,MA
+90,CUST000090,Mei,Anderson,Mass Market,749,Low,34,2017,AZ
+91,CUST000091,Maria,Anderson,Mass Market,702,Medium,40,2024,AZ
+92,CUST000092,Olivia,Anderson,Affluent,685,Medium,11,2021,MA
+93,CUST000093,David,Davis,Affluent,773,Low,18,2022,AZ
+94,CUST000094,Lucas,Davis,Mass Market,623,High,18,2022,MA
+95,CUST000095,Ethan,Martinez,Mass Market,743,Low,16,2016,IL
+96,CUST000096,Maria,Kim,Affluent,797,Low,6,2020,TX
+97,CUST000097,Linda,Gonzalez,Affluent,700,Medium,10,2017,FL
+98,CUST000098,Priya,Wilson,Mass Market,700,Medium,22,2016,AZ
+99,CUST000099,Priya,Johnson,Mass Market,751,Low,14,2022,GA
+100,CUST000100,Raj,Chen,Affluent,729,Medium,2,2021,NC

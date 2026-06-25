@@ -1,0 +1,244 @@
+/// _Measures — all banking KPIs, organized by dashboard (display folders).
+/// A hidden, data-less table that holds the measure library.
+
+table '_Measures'
+	column _placeholder
+		isHidden
+		dataType: int64
+		summarizeBy: none
+		sourceColumn: _placeholder
+
+	partition _Measures = m
+		mode: import
+		source =
+				let
+					Source = #table(type table [_placeholder = Int64.Type], {{0}})
+				in
+					Source
+
+	/* ===== 0 · Foundation ===== */
+
+	measure 'Total Deposits' =
+			VAR _latest = CALCULATE ( MAX ( AggDailyDeposits[DateKey] ), ALLSELECTED ( DimDate ) )
+			RETURN CALCULATE ( SUM ( AggDailyDeposits[TotalDeposits] ), AggDailyDeposits[DateKey] = _latest )
+		formatString: \$#,0
+		displayFolder: 0 Foundation
+
+	measure 'Total Loans' =
+			VAR _latest = CALCULATE ( MAX ( FactLoanBalance[DateKey] ), ALLSELECTED ( DimDate ) )
+			RETURN CALCULATE ( SUM ( FactLoanBalance[EndingBalance] ), FactLoanBalance[DateKey] = _latest )
+		formatString: \$#,0
+		displayFolder: 0 Foundation
+
+	measure 'Earning Assets' = [Total Loans] + [Total Deposits]
+		formatString: \$#,0
+		displayFolder: 0 Foundation
+
+	measure 'Transaction Count' = COUNTROWS ( FactTransaction )
+		formatString: #,0
+		displayFolder: 0 Foundation
+
+	measure 'Transaction Volume' = SUM ( FactTransaction[AbsAmount] )
+		formatString: \$#,0
+		displayFolder: 0 Foundation
+
+	/* ===== 1 · Executive (P1) ===== */
+
+	measure 'Interest Income' = CALCULATE ( SUM ( AggMonthlyLoans[InterestIncome] ) )
+		formatString: \$#,0
+		displayFolder: 1 Executive
+
+	measure 'Interest Expense' = CALCULATE ( SUM ( AggMonthlyDeposits[InterestExpense] ) )
+		formatString: \$#,0
+		displayFolder: 1 Executive
+
+	measure 'Net Interest Income' = [Interest Income] - [Interest Expense]
+		formatString: \$#,0
+		displayFolder: 1 Executive
+
+	measure 'NIM %' =
+			VAR _months = DISTINCTCOUNT ( AggMonthlyLoans[MonthKey] )
+			VAR _annualizedNII = DIVIDE ( [Net Interest Income], _months ) * 12
+			RETURN DIVIDE ( _annualizedNII, [Earning Assets] )
+		formatString: 0.00%
+		displayFolder: 1 Executive
+
+	measure 'Fee Income' =
+			CALCULATE ( SUM ( FactTransaction[AbsAmount] ), FactTransaction[TransactionType] = "Fee" )
+		formatString: \$#,0
+		displayFolder: 1 Executive
+
+	measure 'Operating Cost Proxy' = [Net Interest Income] * 0.45 + [Fee Income] * 0.30
+		formatString: \$#,0
+		displayFolder: 1 Executive
+		isHidden
+
+	measure 'Net Income Proxy' = [Net Interest Income] + [Fee Income] - [Operating Cost Proxy]
+		formatString: \$#,0
+		displayFolder: 1 Executive
+
+	measure 'ROA %' = DIVIDE ( [Net Income Proxy], [Earning Assets] )
+		formatString: 0.00%
+		displayFolder: 1 Executive
+
+	measure 'Efficiency Ratio %' = DIVIDE ( [Operating Cost Proxy], [Net Interest Income] + [Fee Income] )
+		formatString: 0.0%
+		displayFolder: 1 Executive
+
+	measure 'Deposit Growth %' =
+			VAR _start =
+				CALCULATE ( SUM ( AggDailyDeposits[TotalDeposits] ),
+					AggDailyDeposits[DateKey] = CALCULATE ( MIN ( AggDailyDeposits[DateKey] ), ALLSELECTED ( DimDate ) ) )
+			RETURN DIVIDE ( [Total Deposits] - _start, _start )
+		formatString: 0.0%
+		displayFolder: 1 Executive
+
+	measure 'Loan Growth %' =
+			VAR _start =
+				CALCULATE ( SUM ( FactLoanBalance[EndingBalance] ),
+					FactLoanBalance[DateKey] = CALCULATE ( MIN ( FactLoanBalance[DateKey] ), ALLSELECTED ( DimDate ) ) )
+			RETURN DIVIDE ( [Total Loans] - _start, _start )
+		formatString: 0.0%
+		displayFolder: 1 Executive
+
+	/* ===== 2 · Risk & Delinquency (P2) ===== */
+
+	measure 'NPL Balance' =
+			VAR _latest = CALCULATE ( MAX ( FactLoanBalance[DateKey] ), ALLSELECTED ( DimDate ) )
+			RETURN CALCULATE ( SUM ( FactLoanBalance[EndingBalance] ),
+				FactLoanBalance[DateKey] = _latest, FactLoanBalance[IsNonPerforming] = TRUE () )
+		formatString: \$#,0
+		displayFolder: 2 Risk
+
+	measure 'NPL Ratio %' = DIVIDE ( [NPL Balance], [Total Loans] )
+		formatString: 0.00%
+		displayFolder: 2 Risk
+
+	measure 'Delinquent Balance' =
+			VAR _latest = CALCULATE ( MAX ( FactLoanBalance[DateKey] ), ALLSELECTED ( DimDate ) )
+			RETURN CALCULATE ( SUM ( FactLoanBalance[EndingBalance] ),
+				FactLoanBalance[DateKey] = _latest, FactLoanBalance[DelinquencyBucket] <> "Current" )
+		formatString: \$#,0
+		displayFolder: 2 Risk
+
+	measure 'Delinquency Rate %' = DIVIDE ( [Delinquent Balance], [Total Loans] )
+		formatString: 0.0%
+		displayFolder: 2 Risk
+
+	measure 'Worsened Balance' =
+			CALCULATE ( SUM ( FactLoanBalance[EndingBalance] ), FactLoanBalance[RollStatus] = "Worsened" )
+		formatString: \$#,0
+		displayFolder: 2 Risk
+
+	measure 'Roll Rate %' =
+			DIVIDE ( [Worsened Balance],
+				CALCULATE ( SUM ( FactLoanBalance[EndingBalance] ),
+					FactLoanBalance[RollStatus] IN { "Worsened", "Cured", "Stable" } ) )
+		formatString: 0.00%
+		displayFolder: 2 Risk
+
+	measure 'Stage 1 Balance' = CALCULATE ( SUM ( FactLoanBalance[EndingBalance] ), FactLoanBalance[CECLStage] = "Stage 1 - Performing" )
+		formatString: \$#,0
+		displayFolder: 2 Risk
+
+	measure 'Stage 2 Balance' = CALCULATE ( SUM ( FactLoanBalance[EndingBalance] ), FactLoanBalance[CECLStage] = "Stage 2 - SICR" )
+		formatString: \$#,0
+		displayFolder: 2 Risk
+
+	measure 'Stage 3 Balance' = CALCULATE ( SUM ( FactLoanBalance[EndingBalance] ), FactLoanBalance[CECLStage] = "Stage 3 - Impaired" )
+		formatString: \$#,0
+		displayFolder: 2 Risk
+
+	measure 'ECL Allowance Proxy' = [Stage 1 Balance] * 0.005 + [Stage 2 Balance] * 0.05 + [Stage 3 Balance] * 0.40
+		formatString: \$#,0
+		displayFolder: 2 Risk
+
+	measure 'Coverage Ratio %' = DIVIDE ( [ECL Allowance Proxy], [Total Loans] )
+		formatString: 0.00%
+		displayFolder: 2 Risk
+
+	/* ===== 3 · Deposits & Lending (P3) ===== */
+
+	measure 'Loan to Deposit Ratio %' = DIVIDE ( [Total Loans], [Total Deposits] )
+		formatString: 0.0%
+		displayFolder: 3 Deposits & Lending
+
+	measure 'CASA Balance' =
+			VAR _latest = CALCULATE ( MAX ( AggDailyDeposits[DateKey] ), ALLSELECTED ( DimDate ) )
+			RETURN CALCULATE ( SUM ( AggDailyDeposits[TotalDeposits] ),
+				AggDailyDeposits[DateKey] = _latest,
+				FILTER ( ALL ( DimProduct ), DimProduct[ProductName] IN { "Everyday Checking", "Premium Checking", "High-Yield Savings" } ) )
+		formatString: \$#,0
+		displayFolder: 3 Deposits & Lending
+
+	measure 'CASA Ratio %' = DIVIDE ( [CASA Balance], [Total Deposits] )
+		formatString: 0.0%
+		displayFolder: 3 Deposits & Lending
+
+	measure 'Cost of Funds %' =
+			DIVIDE ( SUMX ( AggMonthlyDeposits, AggMonthlyDeposits[DepositBalance] * RELATED ( DimProduct[BaseRate] ) ),
+				SUM ( AggMonthlyDeposits[DepositBalance] ) )
+		formatString: 0.00%
+		displayFolder: 3 Deposits & Lending
+
+	measure 'Loan Yield %' =
+			DIVIDE ( SUMX ( AggMonthlyLoans, AggMonthlyLoans[LoanBalance] * RELATED ( DimProduct[BaseRate] ) ),
+				SUM ( AggMonthlyLoans[LoanBalance] ) )
+		formatString: 0.00%
+		displayFolder: 3 Deposits & Lending
+
+	measure 'Net Spread %' = [Loan Yield %] - [Cost of Funds %]
+		formatString: 0.00%
+		displayFolder: 3 Deposits & Lending
+
+	/* ===== 4 · Regulatory (P4) ===== */
+
+	measure 'Risk Weighted Assets' =
+			SUMX ( VALUES ( DimProduct[LineOfBusiness] ),
+				VAR _lob = DimProduct[LineOfBusiness]
+				VAR _bal = CALCULATE ( [Total Loans], DimProduct[LineOfBusiness] = _lob )
+				VAR _w = SWITCH ( _lob, "Mortgage", 0.50, "Consumer Lending", 0.75, "Cards", 1.00, "Business Banking", 1.00, 0.75 )
+				RETURN _bal * _w )
+		formatString: \$#,0
+		displayFolder: 4 Regulatory
+
+	measure 'CET1 Capital Proxy' = [Risk Weighted Assets] * 0.135
+		formatString: \$#,0
+		displayFolder: 4 Regulatory
+		isHidden
+
+	measure 'CET1 Ratio %' = DIVIDE ( [CET1 Capital Proxy], [Risk Weighted Assets] )
+		formatString: 0.0%
+		displayFolder: 4 Regulatory
+
+	measure 'Total Exposure' = [Total Loans]
+		formatString: \$#,0
+		displayFolder: 4 Regulatory
+
+	measure 'Flagged Transaction Value' =
+			CALCULATE ( SUM ( FactTransaction[AbsAmount] ), FactTransaction[IsFraudFlag] = TRUE () )
+		formatString: \$#,0
+		displayFolder: 4 Regulatory
+
+	measure 'Flagged Transaction Count' =
+			CALCULATE ( COUNTROWS ( FactTransaction ), FactTransaction[IsFraudFlag] = TRUE () )
+		formatString: #,0
+		displayFolder: 4 Regulatory
+
+	/* ===== 5 · Near-real-time ===== */
+
+	measure 'Last Transaction Time' = MAX ( FactTransaction[TxnTimestamp] )
+		formatString: General Date
+		displayFolder: 5 Near Real-Time
+
+	measure 'Txns Last Hour' =
+			CALCULATE ( COUNTROWS ( FactTransaction ),
+				FactTransaction[TxnTimestamp] >= MAX ( FactTransaction[TxnTimestamp] ) - ( 1 / 24 ) )
+		formatString: #,0
+		displayFolder: 5 Near Real-Time
+
+	measure 'Net Flow Today' =
+			VAR _today = CALCULATE ( MAX ( FactTransaction[DateKey] ) )
+			RETURN CALCULATE ( SUM ( FactTransaction[Amount] ), FactTransaction[DateKey] = _today )
+		formatString: \$#,0
+		displayFolder: 5 Near Real-Time
